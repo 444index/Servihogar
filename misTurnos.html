@@ -79,3 +79,69 @@
 
     </body>
 </html>
+
+<!-- agrego mis_turnos.html
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Turnos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <ul class="navbar">
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="mis_turnos.html">Mis turnos</a></li>
+        </ul>
+    </nav>
+    <div class="mis-turnos-container">
+        <h1>Turnos agendados</h1>
+        <ul class="turno-lista" id="turnos-lista">
+        </ul>
+        <button onclick="volverServicios()">Volver a Servicios</button> 
+    </div>
+
+    <script>
+        window.onload = function() {
+            const turnos = JSON.parse(localStorage.getItem('turnos')) || [];
+            const turnosLista = document.getElementById('turnos-lista');
+
+            if (turnos.length === 0) {
+                turnosLista.innerHTML = '<li>No tienes turnos agendados.</li>';
+            } else {
+                turnosLista.innerHTML = ''; 
+                turnos.forEach((turno, index) => {
+                    const turnoElemento = document.createElement('li');
+                    turnoElemento.innerHTML = `
+                        <div>
+                            <p><strong>Servicio:</strong> ${turno.servicio}</p>
+                            <p><strong>Contacto:</strong> ${turno.contacto}</p>
+                            <p><strong>Fecha:</strong> ${turno.fecha}</p>
+                            <p><strong>Hora:</strong> ${turno.hora}</p>
+                        </div>
+                        <button onclick="borrarTurno(${index})">Borrar</button>
+                    `;
+                    turnosLista.appendChild(turnoElemento);
+                });
+            }
+        };
+
+        
+        function borrarTurno(index) {
+            let turnos = JSON.parse(localStorage.getItem('turnos')) || [];
+            turnos.splice(index, 1); 
+            localStorage.setItem('turnos', JSON.stringify(turnos)); 
+            window.location.reload();  
+        }
+
+        
+        function volverServicios() {
+            window.location.href = 'servicios.html';
+        }
+    </script>
+</body>
+</html>
+--->
