@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contactos</title> <!-- agrego y creo pagina de contactos posibles para turnos--->
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <ul class="navbar">
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="mis_turnos.html">Mis Turnos</a></li>
+        </ul>
+    </nav>
+    <div class="contacto-container">
+        <h1>Contactos para <span id="servicio-name"></span></h1> 
+
+        
+        <ul id="contact-list">
+            
+        </ul>
+
+        <button onclick="window.location.href='servicios.html'">Volver a servicios</button>
+    </div>
+
+    <script>
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const servicio = urlParams.get('service'); 
+        
+        
+        const contactos = {
+            electricista: [
+                { nombre: "Thomas Edison", telefono: "123456789" },
+                { nombre: "Alessandro Volta", telefono: "123456789" },
+                { nombre: "Nikola Tesla", telefono: "123456789" }
+            ],
+            jardineria: [
+                { nombre: "Carlos Linneo", telefono: "123456789" },
+                { nombre: "Jeanne Baret", telefono: "123456789" },
+                { nombre: "Carl von Linné", telefono: "123456789" }
+            ],
+            fumigacion: [
+                { nombre: "Rachel Fuller Brow", telefono: "123456789" },
+                { nombre: "Carl Bosch", telefono: "123456789" },
+                { nombre: "Elizabeth Lee Hazen", telefono: "123456789" }
+            ],
+            gasista: [
+                { nombre: "Robert Boyle", telefono: "123456789" },
+                { nombre: "Philippe Le Bon", telefono: "123456789" },
+                { nombre: "Jan Baptista van Helmont", telefono: "123456789" }
+            ],
+            plomeria: [
+                { nombre: "Thomas Crapper", telefono: "123456789" },
+                { nombre: "Paul Gauguin", telefono: "123456789" },
+                { nombre: "Francisco de Goya", telefono: "123456789" }
+            ],
+            pintureria: [
+                { nombre: "Salvador Dalí", telefono: "123456789" },
+                { nombre: "Vincent Van Gogh", telefono: "123456789" },
+                { nombre: "Sandro Botticelli", telefono: "123456789" }
+            ]
+        };
+
+        
+        function mostrarContactos(servicio) {
+            const contactList = document.getElementById('contact-list');
+            contactList.innerHTML = ''; // Limpiar la lista antes de agregar
+
+            const serviceContacts = contactos[servicio];
+            if (serviceContacts) {
+                serviceContacts.forEach(contacto => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `${contacto.nombre} - Tel: ${contacto.telefono} 
+                                    <button onclick="agendarTurno('${contacto.nombre}')">Agendar Turno</button>`;
+                    contactList.appendChild(li);
+                });
+            } else {
+                const li = document.createElement('li');
+                li.textContent = 'No hay contactos disponibles para este servicio.';
+                contactList.appendChild(li);
+            }
+        }
+
+        // Mostrar el nombre del servicio en el título
+        document.getElementById('servicio-name').textContent = servicio ? servicio.charAt(0).toUpperCase() + servicio.slice(1) : 'Servicio no disponible';
+
+        // Llamar a la función para mostrar los contactos del servicio seleccionado
+        mostrarContactos(servicio);
+
+        // Función para redirigir a la página de agendar con el contacto seleccionado
+        function agendarTurno(contacto) {
+            window.location.href = `agendar.html?service=${servicio}&contacto=${encodeURIComponent(contacto)}`;
+        }
+    </script>
+</body>
+</html>
